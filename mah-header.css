@@ -1,0 +1,364 @@
+/* ==========================================================
+   Mobile App Header — CSS (GitHub / jsDelivr se load hota hai)
+   Saari dynamic values Liquid se CSS variables me aati hain.
+   ========================================================== */
+
+/* App jaisa smooth page transition (Chrome/Edge) */
+@view-transition { navigation: auto; }
+::view-transition-old(root) { animation-duration: .18s; }
+::view-transition-new(root) { animation-duration: .18s; }
+
+/* ---------- Header ko bilkul top tak le jao ---------- */
+html, body { margin: 0 !important; }
+body { padding-top: 0 !important; }
+#MainContent { padding-top: 0 !important; margin-top: 0 !important; }
+.section-mobile-app-header { margin-top: 0 !important; padding-top: 0 !important; }
+.section-mobile-app-header + * { margin-top: 0; }
+.shopify-section:has(> .mobile-app-header) { margin-top: 0 !important; padding-top: 0 !important; }
+
+/* ---------- ROOT ---------- */
+.mobile-app-header {
+  --mah-pad-x: 16px;
+  --mah-icon: 40px;
+  display: none;
+  position: relative;
+  background: transparent;
+  color: var(--mah-text, #111);
+  overflow: visible;
+}
+
+@media screen and (max-width: 749px) {
+  .mobile-app-header { display: block; }
+  html:has(.mobile-app-header.mah--hide-header) :is(.section-header, #shopify-section-header, .header-wrapper) {
+    display: none !important;
+  }
+}
+
+/* ---------- HEADER PART ---------- */
+.mah__inner {
+  position: relative;
+  z-index: 2;
+  background: var(--mah-header-bg-css, #fff);
+}
+
+/* ---------- DIWALI FIREWORKS canvas ---------- */
+.mah__fx {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+  z-index: 0;
+  opacity: var(--mah-fx-opacity, .35);
+}
+@media (prefers-reduced-motion: reduce) {
+  .mah__fx { display: none !important; }
+}
+
+.mah__top,
+.mah__searchwrap,
+.mah__cats {
+  position: relative;
+  z-index: 1;
+  background: transparent;
+}
+
+/* ---------- TOP BAR ---------- */
+.mah__top {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px;
+  padding: calc(12px + env(safe-area-inset-top, 0px)) var(--mah-pad-x) 8px;
+}
+.mah__logo { display: flex; align-items: center; text-decoration: none; min-width: 0; }
+.mah__logo img { height: var(--mah-logo-h, 30px); width: auto; display: block; }
+.mah__logo-text {
+  font-size: 21px; font-weight: 800; letter-spacing: -0.02em;
+  color: var(--mah-text); white-space: nowrap;
+}
+
+.mah__actions { display: flex; align-items: center; gap: 8px; flex: 0 0 auto; }
+
+.mah__btn {
+  position: relative;
+  width: var(--mah-icon); height: var(--mah-icon);
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 12px;
+  border: 0.5px solid currentColor;
+  background: transparent;
+  color: var(--mah-text);
+  opacity: .9;
+  text-decoration: none; cursor: pointer;
+}
+.mah__btn svg { width: 20px; height: 20px; }
+.mah__count {
+  position: absolute; top: -6px; right: -6px;
+  min-width: 18px; height: 18px; padding: 0 5px; border-radius: 9px;
+  background: var(--mah-badge-bg, #E63946);
+  color: var(--mah-badge-fg, #fff);
+  font-size: 11px; font-weight: 700; line-height: 18px; text-align: center;
+}
+
+/* ---------- SEARCH ---------- */
+.mah__searchwrap { padding: 4px var(--mah-pad-x) 10px; }
+.mah__search {
+  display: flex; align-items: center;
+  height: var(--mah-search-h, 48px); padding: 0 16px;
+  border-radius: var(--mah-search-r, 26px);
+  background: var(--mah-search-bg, #fff);
+  border: 1px solid var(--mah-search-border, rgba(0,0,0,.06));
+  color: var(--mah-search-fg, #2b2b2b);
+  text-decoration: none;
+  box-shadow: 0 2px 10px rgba(0,0,0,.05);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+}
+.mah__search-icon { flex: 0 0 auto; width: 18px; height: 18px; opacity: .75; }
+.mah__ph {
+  display: flex; align-items: center; gap: 5px;
+  margin-left: 10px; min-width: 0; flex: 1 1 auto;
+  font-size: 15px; white-space: nowrap; overflow: hidden;
+}
+.mah__ph-static { flex: 0 0 auto; opacity: .7; }
+.mah__ph-rotator { position: relative; height: 20px; flex: 1 1 auto; overflow: hidden; }
+.mah__ph-item {
+  position: absolute; left: 0; top: 0; width: 100%;
+  line-height: 20px; font-weight: 600;
+  opacity: 0; transform: translateY(100%);
+  transition: transform .45s cubic-bezier(.22,.61,.36,1), opacity .45s ease;
+}
+.mah__ph-item.is-active { opacity: 1; transform: translateY(0); }
+.mah__ph-item.is-out { opacity: 0; transform: translateY(-100%); }
+
+/* ---------- CATEGORY SLIDER ---------- */
+.mah__cats {
+  display: flex; gap: var(--mah-cat-gap, 18px);
+  padding: 6px var(--mah-pad-x) 12px;
+  overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+}
+.mah__cats::-webkit-scrollbar { display: none; }
+
+.mah__cat {
+  flex: 0 0 auto;
+  display: flex; flex-direction: column; align-items: center; gap: 5px;
+  min-width: 54px; padding-bottom: 4px;
+  text-decoration: none; color: var(--mah-text);
+  opacity: 1;
+  border-bottom: 2px solid transparent;
+}
+.mah__cat.is-active { border-bottom-color: currentColor; }
+
+.mah__cat-img {
+  width: var(--mah-cat-size, 28px); height: var(--mah-cat-size, 28px);
+  border-radius: var(--mah-cat-radius, 0px);
+  background: transparent;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  padding: var(--tile-pad, 0px); box-sizing: border-box;
+}
+.mah__cat-img img {
+  width: 100%; height: 100%;
+  object-fit: var(--tile-fit, contain);
+  display: block; border-radius: inherit;
+}
+.mah__cat-label {
+  font-size: var(--mah-cat-font, 11px); line-height: 1.2;
+  font-weight: 600; text-align: center; white-space: nowrap;
+}
+.mah__cat.is-active .mah__cat-label { font-weight: 800; }
+
+/* ---------- BANNER PART ---------- */
+.mah__bannerpart {
+  position: relative;
+  width: 100%;
+  background: var(--mah-banner-bg, #EDE7F6);
+  overflow: hidden;
+}
+
+/* FIXED mode (default): cover crop */
+.mah__bannerbg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.mah__bannerbg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--mah-img-pos, center center);
+  display: block;
+}
+.mah__bannerpart .mah__hero { position: relative; z-index: 1; }
+
+/* AUTO mode: image apne ratio me, crop nahi */
+.mah--auto .mah__bannerbg { position: relative; inset: auto; width: 100%; }
+.mah--auto .mah__bannerbg img { height: auto; object-fit: contain; }
+.mah--auto .mah__bannerpart .mah__hero {
+  position: absolute; inset: 0; z-index: 1;
+  min-height: 0; height: 100%;
+}
+.mah--auto.mah--noimg .mah__bannerpart .mah__hero {
+  position: relative;
+  min-height: var(--mah-banner-h, 300px);
+  height: auto;
+}
+
+.mah__img--desktop { display: none !important; }
+
+.mah__bannerbg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,var(--mah-overlay, 0));
+}
+
+/* ---------- BANNER TEXT ---------- */
+.mah__hero {
+  min-height: var(--mah-banner-h, 300px);
+  display: flex; flex-direction: column; justify-content: flex-end;
+  align-items: flex-start;
+  text-align: left;
+  padding: 24px var(--mah-pad-x) 22px;
+  text-decoration: none; color: var(--mah-text);
+}
+.mah--auto .mah__hero { min-height: 0; }
+.mah--center .mah__hero { align-items: center; text-align: center; }
+
+.mah__hero-h {
+  margin: 0;
+  font-size: var(--mah-heading-size, 30px);
+  line-height: 1.12; letter-spacing: -0.01em; font-weight: 700;
+}
+.mah--serif .mah__hero-h { font-family: Georgia, 'Times New Roman', serif; }
+.mah__hero-h em { font-style: italic; }
+.mah__hero-sub {
+  margin: 8px 0 0; font-size: 13px; line-height: 1.5;
+  opacity: .85; max-width: 34ch;
+}
+
+/* ==========================================================
+   STICKY BAR (scroll pe top pe slide-in)
+   ========================================================== */
+.mah-sticky {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 900;
+  background: var(--mah-sticky-bg, #fff);
+  color: var(--mah-sticky-fg, #111);
+  padding: calc(8px + env(safe-area-inset-top, 0px)) 12px 8px;
+  transform: translateY(-110%);
+  transition: transform .3s cubic-bezier(.22,.61,.36,1);
+  box-shadow: 0 2px 16px rgba(0,0,0,.10);
+  overflow: hidden;
+}
+.mah-sticky.is-visible { transform: translateY(0); }
+
+@media screen and (max-width: 749px) {
+  .mah-sticky { display: block; }
+}
+
+.mah-sticky__inner {
+  position: relative; z-index: 1;
+  display: flex; align-items: center; gap: 10px;
+}
+.mah-sticky__search {
+  flex: 1 1 auto; min-width: 0;
+  display: flex; align-items: center; gap: 10px;
+  height: 44px; padding: 0 16px;
+  border-radius: var(--mah-search-r, 26px);
+  background: var(--mah-sticky-search-bg, #F2F2F2);
+  border: 1px solid rgba(0,0,0,.08);
+  color: var(--mah-sticky-search-fg, #555);
+  text-decoration: none; font-size: 15px; font-weight: 600;
+}
+.mah-sticky__search svg { width: 18px; height: 18px; opacity: .7; flex: 0 0 auto; }
+.mah-sticky__ph { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; opacity: .85; }
+.mah-sticky__btn {
+  position: relative; flex: 0 0 auto;
+  width: 44px; height: 44px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  border: 0.5px solid currentColor; background: transparent;
+  color: var(--mah-sticky-fg, #111);
+  text-decoration: none; cursor: pointer;
+}
+.mah-sticky__btn svg { width: 20px; height: 20px; }
+
+/* ---------- DRAWER ---------- */
+.mah__drawer {
+  position: fixed; inset: 0; z-index: 999;
+  visibility: hidden; opacity: 0;
+  transition: opacity .25s ease, visibility .25s ease;
+}
+.mah__drawer.is-open { visibility: visible; opacity: 1; }
+.mah__drawer-bg { position: absolute; inset: 0; background: rgba(0,0,0,.45); }
+.mah__drawer-panel {
+  position: absolute; top: 0; right: 0; bottom: 0;
+  width: 78%; max-width: 320px;
+  background: #fff; color: #111; padding: 20px;
+  transform: translateX(100%);
+  transition: transform .28s cubic-bezier(.22,.61,.36,1);
+  overflow-y: auto;
+}
+.mah__drawer.is-open .mah__drawer-panel { transform: translateX(0); }
+.mah__drawer-close {
+  background: none; border: 0; font-size: 26px; line-height: 1;
+  padding: 0 0 14px; cursor: pointer; color: #111;
+}
+.mah__drawer a {
+  display: block; padding: 13px 0; border-bottom: 1px solid #eee;
+  color: #111; text-decoration: none; font-size: 16px; font-weight: 600;
+}
+
+/* ==========================================================
+   DESKTOP (sirf jab "Show on desktop" ON ho)
+   ========================================================== */
+@media screen and (min-width: 750px) {
+  .mah__img--mobile { display: none !important; }
+  .mah__img--desktop { display: block !important; }
+
+  .mobile-app-header.mah--desktop { display: block; }
+  html:has(.mobile-app-header.mah--desktop.mah--hide-header) :is(.section-header, #shopify-section-header, .header-wrapper) {
+    display: none !important;
+  }
+
+  .mah--desktop .mah__top { padding: 20px 48px 6px; }
+  .mah--desktop .mah__logo img { height: calc(var(--mah-logo-h, 30px) * 1.25); }
+  .mah--desktop .mah__logo-text { font-size: 26px; }
+
+  /* Search — right side, cart icon ke bagal me */
+  .mah--desktop .mah__searchwrap {
+    position: absolute;
+    top: 20px;
+    right: 148px;
+    width: min(420px, 32vw);
+    padding: 0;
+    z-index: 2;
+  }
+  .mah--desktop .mah__search { height: 44px; }
+
+  .mah--desktop .mah__cats { padding: 10px 48px 14px; gap: 38px; }
+  .mah--desktop .mah__cat {
+    flex-direction: row; align-items: center;
+    gap: 9px; min-width: 0; padding-bottom: 6px;
+  }
+  .mah--desktop .mah__cat-img { width: 22px; height: 22px; padding: 0; }
+  .mah--desktop .mah__cat-label { font-size: 14.5px; }
+
+  .mah--desktop .mah__hero {
+    min-height: var(--mah-desktop-h, 380px);
+    padding: 48px;
+    justify-content: center;
+    max-width: 100%;
+  }
+  .mah--desktop.mah--auto .mah__hero { min-height: 0; height: 100%; }
+  .mah--desktop.mah--auto.mah--noimg .mah__bannerpart .mah__hero {
+    min-height: var(--mah-desktop-h, 380px);
+    height: auto;
+  }
+  .mah--desktop .mah__hero-h { font-size: var(--mah-desktop-heading, 52px); max-width: 16ch; }
+  .mah--desktop .mah__hero-sub { font-size: 15px; max-width: 48ch; }
+
+  .mah-sticky.mah--desktop { display: block; padding-left: 48px; padding-right: 48px; }
+  .mah-sticky.mah--desktop .mah-sticky__inner { max-width: 1200px; margin: 0 auto; }
+}
